@@ -29,26 +29,34 @@ testing_img=testing_img[:4000]
 testing_labels=testing_labels[:4000]
 
 
-model=models.Sequential()
-model.add(layers.Conv2D(32,(3,3), activation='relu',input_shape=(32,32,3)))
-model.add(layers.MaxPooling2D(2,2))
-model.add(layers.Conv2D(64,(3,3), activation='relu'))
-model.add(layers.MaxPooling2D(2,2))
-model.add(layers.Conv2D(64,(3,3), activation='relu'))
-model.add(layers.Flatten())
-model.add(layers.Dense(64,activation='relu'))
-model.add(layers.Dense(10,activation='softmax'))
+# model=models.Sequential()
+# model.add(layers.Conv2D(32,(3,3), activation='relu',input_shape=(32,32,3)))
+# model.add(layers.MaxPooling2D(2,2))
+# model.add(layers.Conv2D(64,(3,3), activation='relu'))
+# model.add(layers.MaxPooling2D(2,2))
+# model.add(layers.Conv2D(64,(3,3), activation='relu'))
+# model.add(layers.Flatten())
+# model.add(layers.Dense(64,activation='relu'))
+# model.add(layers.Dense(10,activation='softmax'))
 
-model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+# model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
 
-model.fit(training_img,training_labels, epochs=10, validation_data=(testing_img,testing_labels))
+# model.fit(training_img,training_labels, epochs=10, validation_data=(testing_img,testing_labels))
 
-loss,accuracy=model.evaluate(testing_img,testing_labels)
+# loss,accuracy=model.evaluate(testing_img,testing_labels)
 
-print(f"Loss: {loss}")
-print(f"Accuracy: {accuracy}")
+# print(f"Loss: {loss}")
+# print(f"Accuracy: {accuracy}")
 
-model.save('image_classifier.keras')
+# model.save('image_classifier.keras')
 
 
 
+model=load_model('image_classifier.keras')
+
+img=cv.imread('truck.jpg')
+img=cv.cvtColor(img,cv.COLOR_BGR2RGB)
+img = cv.resize(img, (32, 32))
+prediction=model.predict(np.array([img])/255)
+index=np.argmax(prediction)
+print(f'Prediction is {class_names[index]}')
