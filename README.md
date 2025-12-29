@@ -93,8 +93,6 @@ Prediction is Truck
 
 ▶️ How to Run This Project
 - Step 1: Clone the repository
-git clone https://github.com/your-username/cnn-cifar10-classifier.git
-cd cnn-cifar10-classifier
 
 - Step 2: Install required libraries
 pip install tensorflow numpy matplotlib opencv-python
